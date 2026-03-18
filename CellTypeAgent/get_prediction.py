@@ -30,12 +30,12 @@ def create_predicition_prompt(dataset_name, number_of_candidates=3, data_dir='da
     poor_performance_model_prompt = f"Do remember that each row must contain exactly {number_of_candidates} cell types." if poor_performance_model else ""
 
     base_prompt = f"""
-    Determine whether the {species} cells in each row are malignant or non-malignant using the following markers separately 
-    for each row. Only provide the classification (malignant or non-malignant) for each row. The number of outputs should match 
-    the corresponding number of rows in the input. Answer for each row should start with the index number followed by a ': ' 
-    and then the classification. {poor_performance_model_prompt} {prompt_suffix}
-    Here are the marker gene lists, organized row by row{tissue_prompt}: 
+    Identify most likely top {number_of_candidates} cell types of {species} cells using the following markers separately for each row. Only provide the lists of top {number_of_candidates} cell type names row by row. The higher the probability, the further left it is ranked, separated by commas. The number of lists should match the corresponding number of rows in the input. Answer for each row should start with the index number followed by a ': ' and then the predicted cell type names. {poor_performance_model_prompt}
+    {prompt_suffix}
+
+    Here are the marker gene lists, organized row by row{tissue_prompt}:
     """
+    
     if has_tissues:
         for tissue in data['tissue'].unique():
             marker_lists = []
