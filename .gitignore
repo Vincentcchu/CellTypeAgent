@@ -23,3 +23,4 @@ CellTypeAgent/celltype_annotation_assistant.py
 CellTypeAgent/workflows.py
 CellTypeAgent/APIs/*
 analysis
+APIs/openai_api_key.txt
